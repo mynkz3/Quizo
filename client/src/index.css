@@ -1,0 +1,629 @@
+/* ====================================
+   DESIGN SYSTEM (index.css)
+   ====================================
+   Neo-brutalist, light theme.
+   Signature look: cream background, thick BLACK borders, and HARD
+   offset drop-shadows (solid black, no blur). Rounded, friendly
+   display type. Vibrant primary blue with crimson / gold / green
+   accents and soft pastel tints for ranked rows.
+
+   Mobile-first — the participant screens are the priority target.
+*/
+
+/* --- Google Fonts ---
+   Fredoka = chunky rounded display (headings, PIN, buttons)
+   Nunito  = friendly readable body text */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap');
+
+/* --- Design Tokens --- */
+:root {
+  /* Core palette */
+  --ink: #15131A;             /* near-black: borders, shadows, body text */
+  --bg: #FBF5EC;              /* warm cream page background */
+  --surface: #FFFFFF;         /* card surface */
+  --surface-alt: #F4ECDF;     /* slightly deeper cream */
+
+  --primary: #1C44E6;         /* royal blue — main actions, PIN, links */
+  --primary-dark: #1336BE;
+  --primary-ink: #0B1F73;     /* deep blue for 3D text shadow */
+
+  --crimson: #E21B3C;         /* red accent */
+  --gold: #C9A100;            /* gold accent */
+  --green: #1FA14D;           /* green accent */
+
+  /* Kahoot-style answer colors (4 options) */
+  --option-red: #E21B3C;
+  --option-blue: #1368CE;
+  --option-yellow: #C9A100;
+  --option-green: #1FA14D;
+
+  /* Soft pastel tints (ranked rows, podium, slide-type cards) */
+  --tint-gold: #F8E08A;
+  --tint-lavender: #DADFF8;
+  --tint-pink: #F7C9CE;
+  --tint-cream: #EFE6D6;
+
+  --text-primary: #15131A;
+  --text-secondary: #5C5870;
+  --text-muted: #908BA3;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+
+  /* Border radius — generous, blobby */
+  --radius-sm: 0.6rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.4rem;
+  --radius-xl: 2rem;
+  --radius-full: 999px;
+
+  /* The signature hard shadows (no blur) */
+  --border-w: 3px;
+  --shadow-sm: 3px 3px 0 var(--ink);
+  --shadow-md: 5px 5px 0 var(--ink);
+  --shadow-lg: 8px 8px 0 var(--ink);
+  --shadow-glow: 6px 6px 0 var(--primary-ink);
+
+  --transition-fast: 120ms ease;
+  --transition-normal: 220ms ease;
+}
+
+/* --- Reset & Base --- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* --- Utility containers --- */
+.container {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: var(--space-lg);
+}
+
+.container--wide {
+  max-width: 1200px;
+}
+
+/* --- Page layout --- */
+.page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle dotted texture instead of the old animated glow */
+.page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(var(--text-muted) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.12;
+  z-index: -1;
+}
+
+/* --- Typography --- */
+.title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+/* Big 3D display heading (e.g. "GAME OVER!") */
+.display {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  color: var(--primary);
+  text-shadow: 3px 3px 0 var(--primary-ink);
+  letter-spacing: 0.01em;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.label {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.text-secondary { color: var(--text-secondary); }
+
+/* --- Cards --- */
+.card {
+  background: var(--surface);
+  border: var(--border-w) solid var(--ink);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  width: 100%;
+  max-width: 440px;
+  box-shadow: var(--shadow-md);
+}
+
+/* --- Inputs --- */
+.input {
+  width: 100%;
+  padding: var(--space-md) var(--space-lg);
+  background: var(--surface);
+  border: var(--border-w) solid var(--ink);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  outline: none;
+  transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.input:focus {
+  box-shadow: var(--shadow-sm);
+  transform: translate(-1px, -1px);
+}
+
+.input::placeholder {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.input--pin {
+  text-align: center;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  padding: var(--space-lg);
+}
+
+/* --- Buttons --- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-xl);
+  background: var(--surface);
+  color: var(--ink);
+  border: var(--border-w) solid var(--ink);
+  border-radius: var(--radius-full);
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+              background var(--transition-fast);
+  text-decoration: none;
+}
+
+/* Press = squash the shadow (tactile brutalist feel) */
+.btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn:disabled {
+  background: var(--surface-alt);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--primary { background: var(--primary); color: #fff; }
+.btn--danger  { background: var(--crimson); color: #fff; }
+.btn--success { background: var(--green); color: #fff; }
+.btn--full    { width: 100%; }
+
+.btn--large {
+  padding: var(--space-lg) var(--space-2xl);
+  font-size: 1.3rem;
+}
+
+/* --- MCQ option tiles --- */
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  width: 100%;
+}
+
+.option-btn {
+  position: relative;
+  padding: var(--space-lg) var(--space-md);
+  border: var(--border-w) solid var(--ink);
+  border-radius: var(--radius-md);
+  color: #fff;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  text-align: center;
+  word-break: break-word;
+}
+
+.option-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.option-btn:active { transform: translate(2px, 2px); box-shadow: var(--shadow-sm); }
+
+.option-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; box-shadow: var(--shadow-sm); }
+
+.option-btn--0 { background: var(--option-red); }
+.option-btn--1 { background: var(--option-blue); }
+.option-btn--2 { background: var(--option-yellow); }
+.option-btn--3 { background: var(--option-green); }
+
+/* The white shape glyph shown above each option label */
+.option-btn__shape {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+/* --- Speech-bubble question card --- */
+.question-bubble {
+  position: relative;
+  background: var(--surface);
+  border: var(--border-w) solid var(--ink);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-xl);
+  text-align: center;
+}
+
+.question-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 26px;
+  height: 26px;
+  background: var(--surface);
+  border-right: var(--border-w) solid var(--ink);
+  border-bottom: var(--border-w) solid var(--ink);
+}
+
+/* --- Feedback screen --- */
+.feedback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+  text-align: center;
+}
+
+.feedback__icon {
+  font-size: 5rem;
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.feedback__score {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* --- Leaderboard / scoreboard rows --- */
+.leaderboard {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.leaderboard__item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--surface);
+  border: var(--border-w) solid var(--ink);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Medal tints for the top 3 rows */
+.leaderboard__item--1 { background: var(--tint-gold); }
+.leaderboard__item--2 { background: var(--tint-lavender); }
+.leaderboard__item--3 { background: var(--tint-pink); }
+
+.leaderboard__item--you {
+  box-shadow: var(--shadow-glow);
+}
+
+.leaderboard__rank {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  flex-shrink: 0;
+  border: var(--border-w) solid var(--ink);
+  border-radius: var(--radius-full);
+  background: var(--surface);
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.leaderboard__name {
+  flex: 1;
+  font-weight: 800;
+  font-size: 1.15rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.leaderboard__score {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+/* --- Player pills (lobby) --- */
+.player-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md) var(--space-sm);
+  justify-content: center;
+  padding: var(--space-md) 0;
+}
+
+.player-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: var(--surface);
+  border: var(--border-w) solid var(--ink);
+  border-radius: var(--radius-full);
+  padding: var(--space-sm) var(--space-lg) var(--space-sm) var(--space-sm);
+  font-weight: 800;
+  font-size: 1rem;
+  box-shadow: var(--shadow-sm);
+  animation: chipIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Rotate alternating chips a touch for the playful, hand-placed look */
+.player-chip:nth-child(3n)   { transform: rotate(-2deg); }
+.player-chip:nth-child(3n+1) { transform: rotate(1.5deg); }
+
+.player-chip__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: var(--radius-full);
+  border: 2px solid var(--ink);
+  color: #fff;
+  font-weight: 900;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+@keyframes chipIn {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* --- PIN display (host projector) --- */
+.pin-display {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 4.5rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #fff;
+  text-shadow: 0 0 24px rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+
+/* Dark plinth the projector PIN sits on */
+.pin-plinth {
+  background: #1B1B26;
+  border: var(--border-w) solid var(--ink);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-2xl) var(--space-xl);
+  width: 100%;
+}
+
+/* --- Waiting / pulse --- */
+.waiting {
+  text-align: center;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* --- Timer --- */
+.timer {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--text-primary);
+  transition: color var(--transition-fast);
+}
+
+/* Circular timer badge (participant question header) */
+.timer-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-full);
+  border: var(--border-w) solid var(--ink);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+.timer--warning, .timer-badge.timer--warning { color: var(--gold); }
+.timer--danger, .timer-badge.timer--danger {
+  color: var(--crimson);
+  animation: timerPulse 0.5s ease-in-out infinite;
+}
+
+@keyframes timerPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+
+/* --- Spinner --- */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--ink);
+  border-top-color: var(--primary);
+  border-radius: var(--radius-full);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* --- Error toast --- */
+.error-toast {
+  position: fixed;
+  bottom: var(--space-xl);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--crimson);
+  color: #fff;
+  padding: var(--space-md) var(--space-xl);
+  border: var(--border-w) solid var(--ink);
+  border-radius: var(--radius-full);
+  font-weight: 800;
+  box-shadow: var(--shadow-md);
+  z-index: 1000;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  0% { transform: translateX(-50%) translateY(120%); opacity: 0; }
+  100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+}
+
+/* --- Brand wordmark --- */
+.brand {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: -0.01em;
+}
+
+/* --- Top bar (mobile participant header) --- */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  background: var(--surface);
+  border-bottom: var(--border-w) solid var(--ink);
+  z-index: 50;
+}
+
+.topbar__pin {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--primary);
+  letter-spacing: 0.04em;
+}
+
+/* --- Spacers / helpers --- */
+.gap-sm { gap: var(--space-sm); }
+.gap-md { gap: var(--space-md); }
+.gap-lg { gap: var(--space-lg); }
+.gap-xl { gap: var(--space-xl); }
+
+.mt-sm { margin-top: var(--space-sm); }
+.mt-md { margin-top: var(--space-md); }
+.mt-lg { margin-top: var(--space-lg); }
+.mt-xl { margin-top: var(--space-xl); }
+.mb-lg { margin-bottom: var(--space-lg); }
+
+.text-center { text-align: center; }
+.flex-col { display: flex; flex-direction: column; }
+.flex-row { display: flex; flex-direction: row; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
